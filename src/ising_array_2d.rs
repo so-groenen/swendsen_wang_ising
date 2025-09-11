@@ -14,10 +14,12 @@ trait MonteCarloModulo
     fn modulo(self, other: Self) -> Self;   
 }
 
+// Se:: https://rust.godbolt.org/z/x4KMMhn69
 impl MonteCarloModulo for i32
 {
     fn modulo(self, other: Self) -> Self
     {
+        // (self % other + other) % other
         if self >= other
         {
             return self - other;
@@ -42,26 +44,25 @@ impl IsingArray2D
     }
     pub fn new_randomized(rng: &mut SmallRng, rows: usize, cols: usize) -> Self
     {
-        // let data = vec![1_i8; rows*cols];
-        // let rows = rows as i32;
-        // let cols = cols as i32;
-
         let mut spins = IsingArray2D::new_polarized(rows, cols);
         spins.randomize_spins(rng);
         spins
     }
-    // fn at_mut_usize(&mut self, i: usize, j: usize) -> &mut i8
-    // {
-    //     &mut self.data[i*(self.cols as usize) + j]
-    // }
+    #[inline(always)]
     pub fn at_pos(&self, pos: (i32, i32)) -> i8 
     {
         self.at(pos.0, pos.1)
     }
+    #[inline(always)]
+    pub fn at_pos_periodic(&self, pos: (i32, i32)) -> i8 
+    {
+        self.at_periodic(pos.0, pos.1)
+    }
+    #[inline(always)]
     pub fn at(&self, i: i32, j: i32) -> i8
     {
-        let n = (i*self.cols) as usize + j as usize;
-        self.data[n]
+        // let n = (i*self.cols) as usize + j as usize;
+        self.data[(i*self.cols) as usize + j as usize]
     }        
     // fn at_mut(&mut self, i: i32, j: i32) -> &mut i8
     // {
@@ -69,10 +70,12 @@ impl IsingArray2D
 
     //     &mut self.data[n]
     // }
+    #[inline(always)]
     pub fn flip_at(&mut self, i: i32, j: i32)
     {
         self.data[(i*self.cols) as usize + j as usize] *= -1;
     }
+    #[inline(always)]
     pub fn at_periodic(&self, i: i32, j: i32) -> i8
     {
         // let i = i.rem_euclid(self.rows);
@@ -91,14 +94,17 @@ impl IsingArray2D
     //     debug_assert!(j >= 0, "j bigger then 0");
     //     self.at_mut(i,j)
     // }
+    #[inline(always)]
     pub fn shape(&self) -> (i32, i32)
     {
         (self.rows, self.cols)
     }
+    #[inline(always)]
     pub fn rows(&self) -> std::ops::Range<i32>
     {
         0..self.rows
     }
+    #[inline(always)]
     pub fn columns(&self) -> std::ops::Range<i32>
     {
         0..self.cols

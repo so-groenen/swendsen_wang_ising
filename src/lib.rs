@@ -5,6 +5,7 @@ use std::iter::zip;
 pub mod ising_array_2d;
 pub mod equivalence_class;
 pub mod cluster_labels;
+pub mod parameter_reader;
 
 pub use ising_array_2d::IsingArray2D;
 pub use equivalence_class::EquivalenceClass;

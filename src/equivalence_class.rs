@@ -2,16 +2,17 @@
 pub struct EquivalenceClass
 {
     data: Vec<usize>,
-    n_classes: i32,
+    // n_classes: i32,
 }
 impl EquivalenceClass
 {
     pub fn new(num_spins: usize) -> Self
     {
         let data: Vec<usize> = (0..(num_spins+1)).collect();
-        let n_classes: i32 = -1;
-        Self { data, n_classes, }
+        // let n_classes: i32 = -1;
+        Self { data}//, n_classes, }
     }   
+    #[inline]
     pub fn reset(&mut self)
     {
         self.data.iter_mut().enumerate().for_each(|(count, value)| *value = count);
