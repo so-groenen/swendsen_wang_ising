@@ -1,5 +1,7 @@
+#![allow(non_snake_case)]
 use rand::rngs::SmallRng;
 use rand::Rng;
+
 pub struct IsingArray2D
 {
     data: Vec<i8>,
@@ -17,6 +19,7 @@ trait MonteCarloModulo
 // Se:: https://rust.godbolt.org/z/x4KMMhn69
 impl MonteCarloModulo for i32
 {
+    #[inline(always)]
     fn modulo(self, other: Self) -> Self
     {
         // (self % other + other) % other
@@ -64,6 +67,30 @@ impl IsingArray2D
         // let n = (i*self.cols) as usize + j as usize;
         self.data[(i*self.cols) as usize + j as usize]
     }        
+    // #[inline(always)]
+    // pub fn get_energy(&self, J_int: f64, pos: (i32, i32)) -> f64
+    // {
+    //     let s = self.at_pos(pos);
+    //     let spin_product = s*(self.at(pos.0 + 1, pos.1) + self.at(pos.0, pos.1+1));
+    //     -J_int * (spin_product as f64)
+    // }
+    #[inline(always)]
+    pub fn get_ngbrs_spin_sum(&self, pos: (i32, i32)) -> i8
+    {
+        self.at(pos.0 + 1, pos.1) + self.at(pos.0, pos.1+1)
+    }
+    #[inline(always)]
+    pub fn get_ngbrs_spin_sum_pbc(&self, pos: (i32, i32)) -> i8
+    {
+        self.at_periodic(pos.0 + 1, pos.1) + self.at_periodic(pos.0, pos.1+1)
+    }
+    // #[inline(always)]
+    // pub fn get_energy_periodic(&self, J_int: f64, pos: (i32, i32)) -> f64
+    // {
+    //     let s = self.at_pos(pos);
+    //     let spin_product = s*(self.at_periodic(pos.0 + 1, pos.1) + self.at_periodic(pos.0, pos.1+1));
+    //     -J_int * (spin_product as f64)
+    // }
     // fn at_mut(&mut self, i: i32, j: i32) -> &mut i8
     // {
     //     let n = (i*self.cols) as usize + j as usize;

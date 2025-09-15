@@ -1,3 +1,5 @@
+#[allow(dead_code)]
+
 pub struct ClusterLabels
 {
     data: Vec<usize>,
@@ -27,10 +29,6 @@ impl ClusterLabels
         let j = pos.1 as usize;
         self.data[i*self.cols + j] = label;
     }
-    // pub fn at_mut(&mut self, i: usize, j: usize) -> &mut usize
-    // {
-    //     &mut self.data[i*self.cols + j]
-    // }
     #[inline]
     pub fn reset(&mut self)
     {
