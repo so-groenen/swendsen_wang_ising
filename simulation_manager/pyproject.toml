@@ -1,0 +1,22 @@
+[project]
+name = "simulation-manager"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fssa",
+    "matplotlib>=3.10.6",
+    "python-simulation-manager",
+    "scipy>=1.16.2",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.30.1",
+]
+
+[tool.uv.sources]
+python-simulation-manager = { git = "https://github.com/so-groenen/python_simulation_manager" }
+fssa = { git = "https://github.com/JefferyWangSH/pyfssa.git" }
+
