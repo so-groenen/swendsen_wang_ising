@@ -7,8 +7,9 @@ requires-python = ">=3.13"
 dependencies = [
     "fssa",
     "matplotlib>=3.10.6",
-    "python-simulation-manager",
+    "physsm",
     "scipy>=1.16.2",
+    "setuptools>=80.9.0",
 ]
 
 [dependency-groups]
@@ -17,6 +18,6 @@ dev = [
 ]
 
 [tool.uv.sources]
-python-simulation-manager = { git = "https://github.com/so-groenen/python_simulation_manager" }
 fssa = { git = "https://github.com/JefferyWangSH/pyfssa.git" }
+physsm = { git = "https://github.com/so-groenen/physsm.git" }
 

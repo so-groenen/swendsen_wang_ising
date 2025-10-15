@@ -156,6 +156,8 @@ celerybeat-schedule
 celerybeat.pid
 .venv
 
+/rust_simulation/results/size_limit/rename.py
+
 # Redis
 *.rdb
 *.aof
